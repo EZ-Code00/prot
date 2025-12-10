@@ -1,0 +1,158 @@
+{
+  "log" : {
+    "access": "/var/log/xray/access.log",
+    "loglevel": "info"
+  },
+  "inbounds": [
+      {
+      "listen": "127.0.0.1",
+      "port": 10085,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
+      },
+      "tag": "api"
+    },
+   {
+     "listen": "127.0.0.1",
+     "port": "1",
+     "protocol": "vless",
+      "settings": {
+          "decryption":"none",
+            "clients": [
+               {
+                    "id": "1ba3e75b-7c2a-4991-9695-7d39b16fd3e1",
+                    "email": "support@rerechanstore.eu.org"              
+#xray-vless-tls
+             }
+         ]
+       },
+       "streamSettings":{
+         "network": "ws",
+            "wsSettings": {
+                "path": "/"
+        },
+        "quicSettings": {},
+        "sockopt": {
+          "mark": 0,
+          "tcpFastOpen": true
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+       }
+     },
+     {
+      "listen": "127.0.0.1",
+      "port": "2",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "1ba3e75b-7c2a-4991-9695-7d39b16fd3e1",
+            "email": "support@rerechanstore.eu.org"
+#xray-vless-tls
+        }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "httpupgradeSettings": {
+          "path": "/"
+        },
+        "quicSettings": {},
+        "sockopt": {
+          "mark": 0,
+          "tcpFastOpen": true
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+	{
+      "tag": "proxy",
+      "protocol": "socks",
+      "settings": {
+         "servers": [
+          {
+            "address": "103.151.12.115",
+            "port": 1080,
+            "users": [
+              {
+                "pass": "2025",
+                "user": "ezcode"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      },
+      {
+        "type": "field",
+        "outboundTag": "blocked",
+        "domain": ["bittorrent","fast.com"]
+      },
+      {
+        "type": "field",
+        "outboundTag": "proxy",
+        "domain": ["geosite:hotstar","geosite:netflix","maybank2u.com.my","irakyat.com.my","www2.irakyat.com.my","cimbclicks.com.my","youtube.com","tiktok.com","mytnb.com","setel.com","bankislam.com","hongleongconnect.my","aeonbank.com.my"]
+      },
+      {
+        "type": "field",
+        "outboundTag": "proxy",
+        "ip": ["geoip:netflix","geoip:my"]
+      },
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "network": "tcp,udp"
+      }
+    ]
+  },
+  "stats": {},
+  "api": {
+    "services": [
+      "StatsService"
+    ],
+    "tag": "api"
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "statsUserDownlink": true,
+        "statsUserUplink": true
+      }
+    },
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true,
+      "statsOutboundUplink" : true,
+      "statsOutboundDownlink" : true
+      }
+   }
+}
