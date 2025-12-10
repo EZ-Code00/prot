@@ -107,6 +107,7 @@
       {
         "type": "field",
         "outboundTag": "blocked",
+## default
         "protocol": [
           "bittorrent"
         ]
