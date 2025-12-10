@@ -120,7 +120,7 @@
       {
         "type": "field",
         "outboundTag": "proxy",
-        "domain": ["maybank2u.com.my","irakyat.com.my","www2.irakyat.com.my","cimbclicks.com.my","youtube.com","tiktok.com","mytnb.com","setel.com","bankislam.com","hongleongconnect.my","aeonbank.com.my"]
+        "domain": ["maybank2u.com.my","irakyat.com.my","www2.irakyat.com.my","cimbclicks.com.my","youtube.com","tiktok.com","mytnb.com","setel.com","bankislam.com","hongleongconnect.my","aeonbank.com.my","netflix.com"]
       },
       {
         "type": "field",
