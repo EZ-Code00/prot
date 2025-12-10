@@ -43,7 +43,7 @@
         "destOverride": ["http", "tls"]
        }
      },
-     {
+    {
       "listen": "127.0.0.1",
       "port": "2",
       "protocol": "vless",
@@ -71,8 +71,8 @@
       "sniffing": {
         "enabled": true,
         "destOverride": ["http", "tls"]
-       }
-     }
+      }
+    }
   ],
   "outbounds": [
     {
@@ -85,7 +85,7 @@
       "settings": {
          "servers": [
           {
-            "address": "124.217.246.220",
+            "address": "127.0.0.1",
             "port": 1080,
             "users": [
               {
@@ -120,12 +120,7 @@
       {
         "type": "field",
         "outboundTag": "proxy",
-        "domain": ["geosite:hotstar","geosite:netflix","maybank2u.com.my","irakyat.com.my","www2.irakyat.com.my","cimbclicks.com.my","youtube.com","tiktok.com","mytnb.com","setel.com","bankislam.com","hongleongconnect.my","aeonbank.com.my"]
-      },
-      {
-        "type": "field",
-        "outboundTag": "proxy",
-        "ip": ["geoip:netflix","geoip:my"]
+        "domain": ["maybank2u.com.my","irakyat.com.my","www2.irakyat.com.my","cimbclicks.com.my","youtube.com","tiktok.com","mytnb.com","setel.com","bankislam.com","hongleongconnect.my","aeonbank.com.my"]
       },
       {
         "type": "field",
